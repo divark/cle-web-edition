@@ -17,4 +17,4 @@ jobs:
         run: bun install
 
       - name: Run the tests
-        run: bun cucumber-js
+        run: bun run cucumber-js
