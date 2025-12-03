@@ -1,0 +1,20 @@
+name: Verify the project works and deploy it when it is.
+
+on: [push]
+
+jobs:
+  test:
+    name: Run tests.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install the project dependencies
+        run: bun install
+
+      - name: Run the tests
+        run: bun cucumber-js

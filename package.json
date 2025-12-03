@@ -1,0 +1,13 @@
+{
+  "name": "cle-web-edition",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.3.0",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
