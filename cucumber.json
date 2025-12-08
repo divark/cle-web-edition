@@ -1,5 +1,6 @@
 {
   "default": {
-    "import": ["features/**/*.ts"]
+    "paths": ["tests/features"],
+    "import": ["tests/features/**/*.ts"]
   }
 }
