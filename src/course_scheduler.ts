@@ -9,26 +9,74 @@ class Course {
     this.units = units;
   }
 
-  /// Returns the name for the given Course.
+  /**
+   *
+   * @returns The name for the Course.
+   */
   get_name(): string {
     return this.name;
+  }
+
+  /**
+   *
+   * @returns The number of units for the Course.
+   */
+  get_units(): number {
+    return this.units;
   }
 }
 
 class Term {
-  units_limit: number;
   courses: Array<Course>;
 
+  units: number;
+  units_limit: number;
+
   constructor(units_limit: number) {
-    this.units_limit = units_limit;
     this.courses = Array<Course>();
+
+    this.units = 0;
+    this.units_limit = units_limit;
   }
 
-  addCourse(course: Course): void {
+  /**
+   *
+   * @returns How many units are being used from the currently added courses.
+   */
+  get_units(): number {
+    return this.units;
+  }
+
+  /**
+   *
+   * @returns The limit of course units until this term is full.
+   */
+  get_unit_limit(): number {
+    return this.units_limit;
+  }
+
+  /**
+   * Returns whether the course was able to fit into the term or not.
+   * @param course
+   */
+  addCourse(course: Course): boolean {
+    let fitsInTerm =
+      course.get_units() + this.get_units() <= this.get_unit_limit();
+    if (!fitsInTerm) {
+      return false;
+    }
+
     this.courses.push(course);
+    this.units += course.get_units();
+
+    return true;
   }
 
-  /// Returns whether the given course name is found in the term.
+  /**
+   * Returns whether the given course name is found in the term.
+   * @param course_name
+   * @returns
+   */
   containsCourse(course_name: string): boolean {
     return (
       this.courses.find((course: Course) => course.get_name() == course_name) !=
@@ -47,12 +95,27 @@ class CourseScheduler {
   schedule(courses: Array<Course>): Array<Term> {
     let termsPopulated = Array<Term>();
 
-    let currentTerm = new Term(this.term_limit);
-    courses.forEach((course) => {
-      currentTerm.addCourse(course);
-    });
+    let coursesVisited = new Set<string>();
+    while (coursesVisited.size < courses.length) {
+      let currentTerm = new Term(this.term_limit);
 
-    termsPopulated.push(currentTerm);
+      for (let i = 0; i < courses.length; i++) {
+        let currentCourse = courses[i];
+        let currentCourseName = currentCourse.get_name();
+        if (coursesVisited.has(currentCourseName)) {
+          continue;
+        }
+
+        let courseFitsInTerm = currentTerm.addCourse(currentCourse);
+        if (!courseFitsInTerm) {
+          continue;
+        }
+
+        coursesVisited.add(currentCourseName);
+      }
+
+      termsPopulated.push(currentTerm);
+    }
 
     return termsPopulated;
   }

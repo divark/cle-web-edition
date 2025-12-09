@@ -1,7 +1,7 @@
 import assert from "assert";
 import { Given, When, Then } from "@cucumber/cucumber";
 
-import { Course, CourseScheduler, Term } from "course_scheduler";
+import { Course, CourseScheduler, Term } from "../../../src/course_scheduler";
 
 Given(
   "a course scheduler with a term limit of {int},",
@@ -25,6 +25,11 @@ When("all courses are scheduled into terms,", function () {
     this.courses,
   );
   this.parsedTerms = scheduledCourses;
+});
+
+Then("there should be {int} terms.", function (expected_num_terms: number) {
+  let actual_num_terms = this.parsedTerms.length;
+  assert.strictEqual(expected_num_terms, actual_num_terms);
 });
 
 Then(
