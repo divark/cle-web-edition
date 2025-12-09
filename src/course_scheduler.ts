@@ -99,20 +99,19 @@ class CourseScheduler {
     while (coursesVisited.size < courses.length) {
       let currentTerm = new Term(this.term_limit);
 
-      for (let i = 0; i < courses.length; i++) {
-        let currentCourse = courses[i];
+      courses.forEach((currentCourse) => {
         let currentCourseName = currentCourse.get_name();
         if (coursesVisited.has(currentCourseName)) {
-          continue;
+          return;
         }
 
         let courseFitsInTerm = currentTerm.addCourse(currentCourse);
         if (!courseFitsInTerm) {
-          continue;
+          return;
         }
 
         coursesVisited.add(currentCourseName);
-      }
+      });
 
       termsPopulated.push(currentTerm);
     }
