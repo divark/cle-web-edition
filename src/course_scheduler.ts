@@ -247,13 +247,7 @@ class CourseScheduler {
         let coursesVisited = new Set<string>();
         let new_prerequisite_graph: DirectedGraph = this.prerequisite_graph;
 
-        let number_of_times_to_try = 0;
-        while (
-            coursesVisited.size < this.courses.length &&
-            number_of_times_to_try < 10
-        ) {
-            number_of_times_to_try++;
-
+        while (coursesVisited.size < this.courses.length) {
             let currentTerm = new Term(this.term_limit);
 
             let courses_with_no_prerequisites =
