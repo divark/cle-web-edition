@@ -1,0 +1,15 @@
+{
+  "prettier": {
+    "allowed": true,
+    "tabWidth": 4
+  },
+  "languages": {
+    "JavaScript": {
+      "formatter": "prettier"
+    },
+    "TypeScript": {
+      "formatter": "prettier"
+    }
+  },
+  "tab_size": 4
+}
