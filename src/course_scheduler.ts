@@ -120,6 +120,10 @@ class DirectedGraph {
         this.edges.get(node_1_id)?.add(node_2_id);
     }
 
+    /**
+     * Removes the given Node from all edges in the Directed Graph.
+     * @param node_id The node to be removed from all edges.
+     */
     remove(node_id: number): void {
         this.nodes.delete(node_id);
 
