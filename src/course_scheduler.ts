@@ -87,11 +87,9 @@ class Term {
 }
 
 class DirectedGraph {
-    nodes: Set<number>;
     edges: Map<number, Set<number>>;
 
     constructor() {
-        this.nodes = new Set<number>();
         this.edges = new Map<number, Set<number>>();
     }
 
@@ -110,9 +108,6 @@ class DirectedGraph {
      * @param node_2_id Node 2's ID that Node 1 will point to.
      */
     add_edge(node_1_id: number, node_2_id: number): void {
-        this.nodes.add(node_1_id);
-        this.nodes.add(node_2_id);
-
         if (!this.edges.has(node_1_id)) {
             this.edges.set(node_1_id, new Set<number>());
         }
@@ -125,8 +120,6 @@ class DirectedGraph {
      * @param node_id The node to be removed from all edges.
      */
     remove(node_id: number): void {
-        this.nodes.delete(node_id);
-
         let node_edges_modified = Array<number>();
         this.edges.forEach((node_1_connections, node_1_id) => {
             let node_edge_deleted = node_1_connections.delete(node_id);
